@@ -1,4 +1,5 @@
 <main>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <section>
     <h2>Datasets</h2>
@@ -52,6 +53,28 @@
   <pre id="unique-result"></pre>
 </section>
 
+<section>
+  <h2>Metrics</h2>
+  <form id="metric-form">
+    <input name="datasetId" placeholder="Dataset ID" required />
+    <input name="name" placeholder="Metric name" required />
+    <input name="ts" placeholder="Timestamp column" required />
+    <input name="val" placeholder="Value column" required />
+    <button type="submit">Create Metric</button>
+  </form>
+
+  <form id="backfill-form">
+    <input name="metricId" placeholder="Metric ID" required />
+    <button type="submit">Backfill</button>
+  </form>
+
+  <form id="series-form">
+    <input name="metricId" placeholder="Metric ID" required />
+    <button type="submit">Load Series</button>
+  </form>
+
+  <canvas id="chart" height="120"></canvas>
+</section>
 
 
 </main>

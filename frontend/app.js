@@ -112,3 +112,64 @@ if (uniqueForm) {
     out.textContent = res.ok ? JSON.stringify(data, null, 2) : `Error: ${data.detail || res.status}`;
   });
 }
+
+let dsChart;
+
+function renderSeries(points) {
+  const ctx = document.getElementById("chart");
+  const labels = points.map(p => p.ts);
+  const values = points.map(p => p.value);
+
+  if (dsChart) dsChart.destroy();
+  dsChart = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels,
+      datasets: [{ label: "value", data: values, pointRadius: 0 }]
+    },
+    options: { responsive: true }
+  });
+}
+
+const metricForm = document.getElementById("metric-form");
+if (metricForm) {
+  metricForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const url = `/metrics?dataset_id=${fd.get("datasetId")}&name=${fd.get("name")}&ts_column=${fd.get("ts")}&value_column=${fd.get("val")}`;
+    const res = await fetch(url, { method: "POST" });
+    const data = await res.json();
+    alert(res.ok ? `Metric created ID=${data.id}` : "Failed to create metric");
+  });
+}
+
+const backfillForm = document.getElementById("backfill-form");
+if (backfillForm) {
+  backfillForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const id = fd.get("metricId");
+    const res = await fetch(`/metrics/${id}/backfill`, { method: "POST" });
+    const data = await res.json();
+    alert(res.ok ? `Backfilled ${data.inserted} points` : "Backfill failed");
+  });
+}
+
+const seriesForm = document.getElementById("series-form");
+if (seriesForm) {
+  seriesForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const id = fd.get("metricId");
+    const res = await fetch(`/metrics/${id}/series`);
+    const data = await res.json();
+    if (res.ok) renderSeries(data.points);
+    else alert("Failed to load series");
+  });
+}
+
+async function fetchAnomalies(metricId, window=24, threshold=3) {
+  const res = await fetch(`/anomalies/zscore?metric_id=${metricId}&window=${window}&threshold=${threshold}`);
+  const data = await res.json();
+  return data.anomalies || [];
+}
