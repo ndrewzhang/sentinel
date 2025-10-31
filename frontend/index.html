@@ -1,0 +1,57 @@
+<main>
+
+  <section>
+    <h2>Datasets</h2>
+    <form id="create-ds">
+      <input name="name" placeholder="Dataset name" required />
+      <button type="submit">Create</button>
+    </form>
+    <ul id="ds-list"></ul>
+  </section>
+
+  <section>
+    <h2>Upload CSV</h2>
+    <form id="upload-form">
+      <input name="datasetId" placeholder="Dataset ID" required />
+      <input type="file" name="file" accept=".csv" required />
+      <button type="submit">Upload</button>
+    </form>
+    <pre id="upload-result"></pre>
+  </section>
+
+  <section>
+  <h2>Null% Rule</h2>
+  <form id="null-form">
+    <input name="datasetId" placeholder="Dataset ID" required />
+    <input name="column" placeholder='Column (e.g., "price")' required />
+    <input name="max" placeholder="Max null ratio (e.g., 0.05)" required />
+    <button type="submit">Run</button>
+  </form>
+  <pre id="null-result"></pre>
+</section>
+
+<section>
+  <h2>Range Rule</h2>
+  <form id="range-form">
+    <input name="datasetId" placeholder="Dataset ID" required />
+    <input name="column" placeholder='Column (e.g., "price")' required />
+    <input name="min" placeholder="Min (optional)" />
+    <input name="max" placeholder="Max (optional)" />
+    <button type="submit">Run</button>
+  </form>
+  <pre id="range-result"></pre>
+</section>
+
+<section>
+  <h2>Unique Rule</h2>
+  <form id="unique-form">
+    <input name="datasetId" placeholder="Dataset ID" required />
+    <input name="column" placeholder='Column (e.g., "order_id")' required />
+    <button type="submit">Run</button>
+  </form>
+  <pre id="unique-result"></pre>
+</section>
+
+
+
+</main>
