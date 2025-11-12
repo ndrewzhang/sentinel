@@ -6,6 +6,8 @@ import "./App.css";
 import MetricsChart from "./components/MetricsChart";
 import CreateMetricForm from "./components/CreateMetricForm";
 import BackfillMetricForm from "./components/BackfillMetricForm";
+import AIPanel from "./components/AIPanel";
+import AIAssist from "./components/AIAssist";
 
 
 export default function App() {
@@ -51,7 +53,9 @@ export default function App() {
       <MetricsChart />
       <CreateMetricForm />
       <BackfillMetricForm />
-      
+      <AIPanel />
+      <AIAssist />
+
     </div>
   );
 }

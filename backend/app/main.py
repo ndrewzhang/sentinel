@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from pathlib import Path
 
-from .routers import datasets, ingest, metrics, anomalies
+from .routers import datasets, ingest, metrics, anomalies, ai
 
 app = FastAPI()
 
@@ -25,6 +25,8 @@ app.include_router(datasets.router)
 app.include_router(ingest.router)
 app.include_router(metrics.router)
 app.include_router(anomalies.router)
+app.include_router(ai.router)
+
 
 @app.get("/health")
 def health():
